@@ -1,0 +1,69 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/transparent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/retangle_large_white"
+        android:elevation="5dp"
+        android:orientation="vertical">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:layout_marginBottom="30dp"
+                android:layout_marginTop="40dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="属于你们的情侣圈已经设立好啦\n快去邀请你的另一半吧~"
+                android:textColor="@color/themeColor"
+                android:textSize="16sp" />
+
+            <Button
+                android:id="@+id/btnInvite"
+                android:paddingLeft="50dp"
+                android:paddingRight="50dp"
+                android:layout_width="wrap_content"
+                android:layout_height="45dp"
+                android:layout_marginBottom="40dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/btn_shape_yellow"
+                android:layout_gravity="center"
+                android:text="去邀请"
+                android:elevation="5dp"
+                android:onClick="onClick"
+                android:textColor="@color/themeColor"
+                android:textSize="20sp" />
+
+
+            <!--
+            <TextView
+                android:id="@+id/single"
+                android:layout_marginTop="40dp"
+                android:layout_marginBottom="20dp"
+                android:layout_marginLeft="12dp"
+                android:layout_marginRight="12dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:onClick="onClick"
+                android:text="我是误入的单身"
+                android:textColor="@color/textGray"
+                android:textSize="16sp" />
+                -->
+
+
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

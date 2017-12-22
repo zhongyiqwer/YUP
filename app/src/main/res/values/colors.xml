@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="white">#FFFFFF</color>
+    <!-- 白色 -->
+    <color name="black">#000000</color>
+    <!-- 黑色 -->
+    <color name="transBlack">#80000000</color>
+    <!-- 透明黑色 -->
+    <color name="transWhite">#99FFFFFF</color>
+    <!-- 透明白色 -->
+    <color name="lighterGray">#e3e3e3</color>
+    <!-- 超浅灰 -->
+    <color name="lightGray">#CCCCCC</color>
+    <!-- 浅灰 -->
+    <color name="textGray">#ABAAAA</color>
+    <!-- 文字灰 -->
+    <color name="bgColor">#f7f7f7</color>
+    <!-- 背景颜色 -->
+    <color name="darkGray">#444444</color>
+
+    <!-- 主题颜色 -->
+    <color name="themeColor">#333333</color>
+    <color name="girlColor">#FF5468</color>
+    <color name="boyColor">#5782FF</color>
+    <color name="singleColor">#fcb942</color>
+    <!--FFDE67 -->
+
+
+    <color name="grey"> #ebebeb</color>
+    <color name="darkgrey"> #C0C0C0</color>
+    <color name="red"> #FF0000</color>
+    <color name="f850_default_blue">#0079ff</color>
+    <drawable name="transparent">#00000000</drawable>
+    <color name="transparent">#00000000</color>
+
+    <color name="header_toast_bg">#ccebfc</color>
+    <color name="header_toast">#024ca1</color>
+    <color name="header_toast_line">#abdaf4</color>
+    <color name="offline_down_title">#909090</color>
+    <color name="offline_head_font">#FFFFFF</color>
+    <color name="gary">#898989</color>
+    <color name="taobao_black">#333333</color>
+    <color name="offline_down_size">#777777</color>
+    <color name="gray_lite">#c5c5c5</color>
+    <color name="progress_background">#ededed</color>
+    <color name="blue">#4c90f9</color>
+    <color name="itemlist">#f4f4f4</color>
+    <color name="act_background">#efefef</color>
+    <color name="phone_bg">#f6f6f6</color>
+    <color name="translucent">#66000000</color>
+
+    <color name="sliding_menu_item_down">#ff39393b</color>
+    <color name="sliding_menu_item_release">#00000000</color>
+    <color name="sliding_menu_background">#ff2c2c2e</color>
+    <color name="sliding_menu_body_background">#fff5f5f5</color>
+
+</resources>

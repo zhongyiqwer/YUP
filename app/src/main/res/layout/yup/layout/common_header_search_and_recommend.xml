@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@null"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolber_common_header_search_and_recommend"
+        android:layout_width="match_parent"
+
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/screen_common_header_search_and_recommend"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginLeft="12dp"
+                android:layout_marginRight="12dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/filtrate" />
+
+            <LinearLayout
+                android:id="@+id/searchll"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_toLeftOf="@id/screen_common_header_search_and_recommend"
+                android:background="@drawable/bg_searchview">
+
+                <android.support.v7.widget.SearchView
+                    android:id="@+id/toolbar_searchview_frag_home"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:queryHint="搜索用户">
+                </android.support.v7.widget.SearchView>
+            </LinearLayout>
+
+
+
+        </RelativeLayout>
+    </android.support.v7.widget.Toolbar>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="35dp">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/common_header_btn_bg">
+
+            <Button
+                android:id="@+id/btn_recommend_common_header_search_and_recommend"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:layout_margin="0dp"
+                android:onClick="onTabSelect1"
+                android:padding="0dp"
+                android:text="推荐"
+                android:textColor="#ffffff" />
+
+            <Button
+                android:id="@+id/btn_nearby_common_header_search_and_recommend"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:layout_marginLeft="-8dp"
+                android:layout_toRightOf="@id/btn_recommend_common_header_search_and_recommend"
+                android:onClick="onTabSelect1"
+                android:padding="0dp"
+                android:text="附近"
+                android:textColor="#ffffff" />
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+</LinearLayout>

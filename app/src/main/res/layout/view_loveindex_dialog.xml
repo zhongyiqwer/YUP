@@ -1,0 +1,47 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/transparent"
+    android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="300dp"
+            android:layout_height="410dp"
+            android:orientation="vertical"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/retangle_large_white"
+            android:elevation="5dp"
+            android:layout_marginTop="10dp">
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:layout_margin="12dp"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                <TextView
+                    android:layout_marginTop="10dp"
+                    android:textColor="@color/themeColor"
+                    android:layout_width="match_parent"
+                    android:gravity="center"
+                    android:textSize="18dp"
+                    android:layout_height="wrap_content"
+                    android:text="恩爱值计算公式"/>
+                <TextView
+                    android:textColor="@color/themeColor"
+                    android:textSize="14dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/loveship_file"/>
+                </LinearLayout>
+            </ScrollView>
+
+
+
+        </LinearLayout>
+
+
+</LinearLayout>

@@ -1,0 +1,118 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/transparent"
+    android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="300dp"
+            android:layout_height="320dp"
+            android:orientation="vertical"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/retangle_large_white"
+            android:elevation="5dp"
+            android:layout_marginTop="10dp">
+            <LinearLayout
+                android:layout_margin="15dp"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:id="@+id/image"
+                        android:layout_gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/item_fail"/>
+                </LinearLayout>
+                <ScrollView
+                    android:orientation="vertical"
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="220dp"
+                    android:fillViewport="false">
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_marginTop="4dp"
+                        android:id="@+id/name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="名称："/>
+                    <TextView
+                        android:layout_marginTop="4dp"
+                        android:id="@+id/type"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="类型："/>
+                    <TextView
+                        android:layout_marginTop="4dp"
+                        android:id="@+id/level"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="解锁："/>
+                    <TextView
+                        android:layout_marginTop="4dp"
+                        android:id="@+id/privilege"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="权限："/>
+                    <TextView
+                        android:layout_marginTop="4dp"
+                        android:id="@+id/function"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="介绍："/>
+                </LinearLayout>
+                </ScrollView>
+            </LinearLayout>
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:id="@+id/useBtn"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:background="@drawable/btn_shape_yellow"
+                    android:layout_gravity="center"
+                    android:text="使用"
+                    android:elevation="5dp"
+                    android:onClick="onClick"
+                    android:textColor="@color/themeColor"
+                    android:layout_marginRight="20dp"
+                    android:textSize="16sp" />
+
+                <Button
+                    android:visibility="gone"
+                    android:id="@+id/maiBtn"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:background="@drawable/btn_shape_yellow"
+                    android:layout_gravity="center"
+                    android:text="埋下"
+                    android:elevation="5dp"
+                    android:onClick="onClick"
+                    android:textColor="@color/themeColor"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+</LinearLayout>

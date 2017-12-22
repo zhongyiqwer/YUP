@@ -1,0 +1,66 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/transparent"
+    android:orientation="vertical" >
+
+        <LinearLayout
+            android:id="@+id/infowindowll"
+            android:layout_width="100dp"
+            android:layout_height="75dp"
+            android:orientation="horizontal"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            >
+
+            <FrameLayout
+                android:orientation="horizontal"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/bgImage"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape_infowindow"
+                android:src="@drawable/couple_bg"
+                android:padding="4dp"
+                android:scaleType="fitCenter"
+                />
+                <com.wao.dogcat.widget.CircleImageView
+                    app:border_color="@color/textGray"
+                    app:border_width="1dp"
+                    android:id="@+id/headA"
+                    android:layout_gravity="left|center_vertical"
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/my"
+                    />
+            <com.wao.dogcat.widget.CircleImageView
+                app:border_color="@color/textGray"
+                app:border_width="1dp"
+                android:id="@+id/headB"
+                android:layout_gravity="left|center_vertical"
+                android:layout_marginLeft="42dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/my"
+                />
+                <ImageView
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="75dp"
+                    android:src="@drawable/right_arrow"
+
+                    />
+
+
+            </FrameLayout>
+        </LinearLayout>
+
+
+</LinearLayout>

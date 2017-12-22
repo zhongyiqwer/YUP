@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/item"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+
+    <TextView
+        android:layout_gravity="center"
+        android:id="@+id/self_tag_item"
+        android:layout_margin="12dp"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/btn_capsule_empty_yellow"
+        android:gravity="center_horizontal"
+        android:text="tag"
+        android:textColor="@color/yupColor"
+        android:textSize="14sp" />
+
+</LinearLayout>

@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp"
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+            <TextView
+                android:id="@+id/month"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="10"
+                android:textSize="18sp"
+                android:textColor="@color/themeColor"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="月"
+                android:gravity="center"
+                android:textSize="10sp"
+                android:textColor="@color/themeColor"
+                />
+            <TextView
+                android:id="@+id/point"
+                android:gravity="right"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/yupColor"
+                android:text="●"
+                android:textSize="25sp"/>
+        </LinearLayout>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/cardView_item_activity"
+            android:layout_width="0dp"
+            android:layout_weight="8"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:elevation="5dp"
+            android:orientation="vertical"
+            app:cardCornerRadius="5dp">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:orientation="vertical"
+                android:padding="10dp">
+
+                <RelativeLayout
+                    android:id="@+id/head"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <com.wao.dogcat.widget.CircleImageView
+                        android:id="@+id/imageV_item_activity_avatar"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        app:border_color="@color/textGray"
+                        app:border_width="1dp"
+                        tools:src="@drawable/my" />
+
+                    <TextView
+                        android:id="@+id/textV_item_activity_username"
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:layout_marginLeft="3dp"
+                        android:layout_toRightOf="@id/imageV_item_activity_avatar"
+                        android:gravity="center"
+                        android:textColor="#333333"
+                        android:textSize="12sp"
+                        tools:text="name" />
+
+                    <TextView
+                        android:id="@+id/textV_item_activity_status"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:text="尚未满人"
+                        android:textSize="11sp" />
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/textV_item_activity_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:layout_margin="5dp"
+                    android:text="有没有组团去XXX"
+                    android:textColor="#333333"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/textV_item_activity_deadline"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="5dp"
+                    android:textSize="11sp"
+                    tools:text="5月4号(星期四) 19:00" />
+
+                <TextView
+                    android:id="@+id/textV_item_activity_where"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+
+                    android:layout_marginTop="4dp"
+                    android:text="太白南路"
+                    android:textSize="11sp" />
+
+
+                <TextView
+                    android:id="@+id/textV_item_activity_publishtime"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:text="20170426"
+                    android:textSize="11sp" />
+
+
+            </LinearLayout>
+
+
+        </android.support.v7.widget.CardView>
+    </LinearLayout>
+</LinearLayout>

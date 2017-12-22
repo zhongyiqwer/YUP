@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/transparent"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="300dp"
+        android:layout_height="280dp"
+        android:orientation="vertical"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/retangle_large_white"
+        android:elevation="5dp"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_marginTop="20dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/activity_add_reality_certi"/>
+          <TextView
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:gravity="center"
+              android:layout_marginTop="12dp"
+              android:textColor="@color/themeColor"
+              android:textSize="20sp"
+              android:text="活动实名认证，远离危险"/>
+
+            <TextView
+                android:id="@+id/dialog_content"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:textSize="16sp"
+                android:text="为了您和他人的安全，发布线下活动需要您先进行实名认证"/>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_alignParentBottom="true"
+            android:gravity="center"
+            android:layout_marginBottom="10dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:id="@+id/noBtn"
+                android:background="@drawable/bg_btn_next_step"
+                android:textColor="@color/white"
+                android:layout_width="wrap_content"
+                android:textSize="14dp"
+                android:layout_margin="10dp"
+                android:layout_height="35dp"
+                android:text="稍后再说"/>
+
+            <Button
+                android:id="@+id/yesBtn"
+                android:background="@drawable/bg_btn_next_step"
+                android:textColor="@color/white"
+                android:layout_width="wrap_content"
+                android:textSize="14dp"
+                android:layout_margin="10dp"
+                android:layout_height="35dp"
+                android:text="实名认证"/>
+        </LinearLayout>
+    </RelativeLayout>
+
+
+</LinearLayout>

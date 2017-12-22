@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cardView_normal_item_activity"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp"
+    android:layout_marginBottom="10dp"
+    android:elevation="5dp"
+    android:orientation="vertical"
+    app:cardCornerRadius="5dp">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <RelativeLayout
+            android:id="@+id/head"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+
+            <com.wao.dogcat.widget.CircleImageView
+                android:id="@+id/imageV_normal_item_activity_avatar"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                app:border_color="@color/textGray"
+                app:border_width="1dp"
+                tools:src="@drawable/my"/>
+
+            <TextView
+                android:id="@+id/textV_normal_item_activity_username"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_marginLeft="3dp"
+                android:layout_toRightOf="@id/imageV_normal_item_activity_avatar"
+                android:gravity="center"
+                android:textColor="#333333"
+                android:textSize="12sp"
+                tools:text="name"/>
+
+            <TextView
+                android:id="@+id/textV_normal_item_activity_news"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:text="2 news"
+                android:visibility="gone"/>
+
+            <TextView
+                android:id="@+id/textV_normal_item_activity_waitcomment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:text="等待评价"/>
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/textV_normal_item_activity_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:text="Activity Name"
+            android:textColor="@color/themeColor"
+            android:textSize="14sp"/>
+
+        <TextView
+            android:id="@+id/textV_normal_item_activity_deadline"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="5dp"
+            android:textSize="11sp"
+            tools:text="Activity Deadline"/>
+
+        <TextView
+            android:id="@+id/textV_normal_item_activity_where"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+
+            android:layout_marginTop="4dp"
+            android:text="Activity Location"
+            android:textSize="11sp"/>
+
+
+    </LinearLayout>
+
+
+</android.support.v7.widget.CardView>

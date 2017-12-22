@@ -1,0 +1,105 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/transparent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/retangle_large_white"
+        android:elevation="5dp"
+        android:orientation="vertical">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_margin="20dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="提示"
+                android:textColor="@color/themeColor"
+                android:textSize="18sp" />
+
+            <TextView
+                android:layout_marginBottom="30dp"
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="当道具被挖走时，可以从挖掘者出获取部分金币，确定将道具埋下吗?"
+                android:textColor="@color/themeColor"
+                android:textSize="16sp" />
+
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:id="@+id/okBtn"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:background="@drawable/btn_shape_yellow"
+                    android:layout_gravity="center"
+                    android:text="确定"
+                    android:elevation="5dp"
+                    android:onClick="onClick"
+                    android:textColor="@color/themeColor"
+                    android:layout_marginRight="20dp"
+                    android:textSize="16sp" />
+
+                <Button
+                    android:id="@+id/cancelBtn"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:background="@drawable/btn_shape_yellow"
+                    android:layout_gravity="center"
+                    android:text="取消"
+                    android:elevation="5dp"
+                    android:onClick="onClick"
+                    android:textColor="@color/themeColor"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+    </LinearLayout>
+
+
+</LinearLayout>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

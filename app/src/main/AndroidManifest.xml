@@ -1,0 +1,420 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.wao.dogcat"
+    android:versionCode="200"
+    android:versionName="V2.0.0">
+
+    <!-- Required -->
+    <permission
+        android:name="com.wao.dogcat.permission.JPUSH_MESSAGE"
+        android:protectionLevel="signature" />
+
+
+    <!-- Required  一些系统要求的权限，如访问网络等-->
+    <uses-permission android:name="com.wao.dogcat.permission.JPUSH_MESSAGE" />
+    <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
+    <uses-permission android:name="android.permission.CHANGE_CONFIGURATION" />
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+
+    <!-- Optional. Required for location feature -->
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.MANAGE_ACCOUNTS" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+
+    <uses-permission android:name="android.permission.BAIDU_LOCATION_SERVICE" />
+
+    <!-- 请求访问使用照相设备 -->
+    <uses-permission android:name="android.permission.CAMERA" />
+    <!-- 开启闪光灯权限 -->
+    <uses-permission android:name="android.permission.FLASHLIGHT" />
+
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
+    <uses-feature android:name="android.hardware.camera.flash" />
+
+    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+    <permission
+        android:name="com.wao.dogcat.permission.RECEIVE_MSG"
+        android:protectionLevel="signature"/>
+    <uses-permission android:name="com.wao.dogcat.permission.RECEIVE_MSG"/>
+
+
+    <uses-feature
+        android:name="android.hardware.sensor.stepcounter"
+        android:required="true" />
+    <uses-feature
+        android:name="android.hardware.sensor.stepdetector"
+        android:required="true" />
+
+    <application
+        android:name=".controller.App"
+        android:allowBackup="true"
+        android:configChanges="fontScale"
+        android:screenOrientation="portrait"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:largeHeap="true"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+
+        <meta-data android:name="AA_DB_NAME" android:value="jchat.db"/>
+        <meta-data
+            android:name="AA_MODELS"
+            android:value="io.jchat.android.database.UserEntry, io.jchat.android.database.FriendEntry,
+             io.jchat.android.database.FriendRecommendEntry" />
+        <meta-data
+            android:name="AA_DB_VERSION"
+            android:value="4"/>
+
+        <!-- Required  SDK核心功能-->
+        <service
+            android:name="cn.jpush.android.service.DownloadService"
+            android:enabled="true"
+            android:exported="false"></service>
+
+
+        <!-- Required SDK 核心功能-->
+        <!-- 可配置android:process参数将PushService放在其他进程中 -->
+        <service
+            android:name="cn.jpush.android.service.PushService"
+            android:enabled="true"
+            android:exported="false" android:process=":pushcore">
+            <intent-filter>
+                <action android:name="cn.jpush.android.intent.REGISTER" />
+                <action android:name="cn.jpush.android.intent.REPORT" />
+                <action android:name="cn.jpush.android.intent.PushService" />
+                <action android:name="cn.jpush.android.intent.PUSH_TIME" />
+            </intent-filter>
+        </service>
+
+        <!-- since 1.8.0 option 可选项。用于同一设备中不同应用的JPush服务相互拉起的功能。 -->
+        <!-- 若不启用该功能可删除该组件，将不拉起其他应用也不能被其他应用拉起 -->
+        <service
+            android:name="cn.jpush.android.service.DaemonService"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="cn.jpush.android.intent.DaemonService" />
+                <category android:name="com.wao.dogcat" />
+            </intent-filter>
+
+        </service>
+
+        <!-- Required SDK核心功能-->
+        <receiver
+            android:name="cn.jpush.android.service.PushReceiver"
+            android:enabled="true"
+            android:exported="false" android:process=":pushcore">
+            <intent-filter android:priority="1000">
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED_PROXY" />   <!--Required  显示通知栏 -->
+                <category android:name="com.wao.dogcat" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.USER_PRESENT" />
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+            <!-- Optional -->
+            <intent-filter>
+                <action android:name="android.intent.action.PACKAGE_ADDED" />
+                <action android:name="android.intent.action.PACKAGE_REMOVED" />
+
+                <data android:scheme="package" />
+            </intent-filter>
+
+        </receiver>
+
+        <!-- Required SDK核心功能-->
+        <receiver
+            android:name="cn.jpush.im.android.helpers.IMReceiver"
+            android:enabled="true"
+            android:exported="false">
+            <intent-filter android:priority="1000">
+                <action android:name="cn.jpush.im.android.action.IM_RESPONSE" />
+                <action android:name="cn.jpush.im.android.action.NOTIFICATION_CLICK_PROXY" />
+
+                <category android:name="com.wao.dogcat" />
+            </intent-filter>
+        </receiver>
+
+        <!-- Required SDK核心功能-->
+        <receiver
+            android:name="cn.jpush.android.service.AlarmReceiver"
+            android:exported="false" />
+
+        <!-- User defined.  For test only  用户自定义的广播接收器-->
+        <receiver
+            android:name="com.jpush.MyReceiver"
+            android:enabled="true"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="cn.jpush.android.intent.REGISTRATION" /> <!--Required  用户注册SDK的intent-->
+                <action android:name="cn.jpush.android.intent.UNREGISTRATION" />
+                <action android:name="cn.jpush.android.intent.MESSAGE_RECEIVED" /> <!--Required  用户接收SDK消息的intent-->
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED" /> <!--Required  用户接收SDK通知栏信息的intent-->
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_OPENED" /> <!--Required  用户打开自定义通知栏的intent-->
+                <action android:name="cn.jpush.android.intent.ACTION_RICHPUSH_CALLBACK" /> <!--Optional 用户接受Rich Push Javascript 回调函数的intent-->
+                <action android:name="cn.jpush.android.intent.CONNECTION" /><!-- 接收网络变化 连接/断开 since 1.6.3 -->
+                <category android:name="com.wao.dagcat" />
+            </intent-filter>
+        </receiver>
+
+        <!-- Required  . Enable it you can get statistics data with channel -->
+        <meta-data
+            android:name="JPUSH_CHANNEL"
+            android:value="developer-default" />
+        <meta-data
+            android:name="JPUSH_APPKEY"
+            android:value="4d454221295c35af705cc26e" /> <!--  </>值来自开发者平台取得的AppKey-->
+
+        <meta-data
+            android:name="com.baidu.lbsapi.API_KEY"
+            android:value="DyivwoFeCliVjmopXIgcqBrAMLHPdejA" />
+
+        <service android:name=".controller.server.TimeService" />
+        <receiver android:name=".controller.server.MyAlarmReceiver"></receiver>
+
+        <service
+            android:name="com.baidu.location.f"
+            android:enabled="true"
+            android:process=":remote"></service>
+
+        <activity
+            android:name=".controller.SplashScreenActivity"
+            android:label="@string/title_activity_main"
+            android:screenOrientation="portrait"
+            >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+
+        <activity
+            android:name=".controller.CompleteActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"></activity>
+
+
+        <activity
+            android:name=".controller.single.FriendActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"></activity>
+
+        <activity
+            android:name=".controller.GuideActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"></activity>
+
+        <activity
+            android:name=".controller.MsgActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait">
+
+            <intent-filter>
+                <action android:name="jpush.testAction" />
+                <category android:name="jpush.testCategory" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".controller.SettingActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".controller.OfflineMapActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"></activity>
+
+        <activity
+            android:name=".controller.StoreActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"></activity>
+
+        <activity
+            android:name=".controller.MsgDetailActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".controller.UserMsgDetailActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"></activity>
+
+        <activity
+            android:name="io.jchat.android.activity.MainActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="io.jchat.android.activity.BaseActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="io.jchat.android.activity.LoginActivity"
+            android:launchMode="singleTask"
+            android:theme="@style/noTitle"
+            android:windowSoftInputMode="adjustResize|stateAlwaysHidden" />
+        <activity
+            android:name="io.jchat.android.activity.RegisterActivity"
+            android:windowSoftInputMode="adjustResize" />
+        <activity android:name="io.jchat.android.activity.MeInfoActivity" />
+        <activity
+            android:name="io.jchat.android.chatting.ChatActivity"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name="io.jchat.android.activity.ReloginActivity"
+            android:windowSoftInputMode="adjustResize|stateAlwaysHidden" />
+        <activity android:name="io.jchat.android.activity.ChatDetailActivity" />
+        <activity
+            android:name="io.jchat.android.activity.GroupSettingActivity"
+            android:theme="@style/group_setting_dialog" />
+        <activity android:name="io.jchat.android.activity.FriendInfoActivity" />
+        <activity android:name="io.jchat.android.activity.CreateGroupActivity" />
+        <activity android:name="io.jchat.android.activity.PickPictureTotalActivity" />
+        <activity android:name="io.jchat.android.activity.PickPictureActivity" />
+        <activity android:name="io.jchat.android.activity.BrowserViewPagerActivity" />
+        <activity android:name="io.jchat.android.activity.SettingActivity" />
+        <activity android:name="io.jchat.android.activity.NotificationSettingActivity" />
+        <activity android:name="io.jchat.android.activity.DisturbSettingActivity" />
+        <activity
+            android:name="io.jchat.android.activity.ResetPasswordActivity"
+            android:windowSoftInputMode="adjustResize|stateAlwaysVisible" />
+        <activity
+            android:name="io.jchat.android.activity.FixProfileActivity"
+            android:windowSoftInputMode="adjustResize|stateAlwaysVisible" />
+        <activity
+            android:name="io.jchat.android.activity.ResetNickNameActivity"
+            android:windowSoftInputMode="adjustResize|stateAlwaysVisible" />
+        <activity
+            android:name="io.jchat.android.activity.SelectAreaActivity"
+            android:windowSoftInputMode="adjustResize|stateAlwaysVisible" />
+        <activity
+            android:name="io.jchat.android.activity.EditSignatureActivity"
+            android:windowSoftInputMode="adjustResize|stateAlwaysVisible" />
+        <activity android:name="io.jchat.android.activity.EditNoteNameActivity" />
+        <activity android:name="io.jchat.android.activity.AboutActivity" />
+        <activity
+            android:name="io.jchat.android.activity.SelectFriendActivity"
+            android:windowSoftInputMode="adjustPan" />
+        <activity android:name="io.jchat.android.activity.MembersInChatActivity" />
+        <activity android:name="io.jchat.android.activity.CropImageActivity" />
+        <activity android:name="io.jchat.android.activity.FriendRecommendActivity" />
+        <activity android:name="io.jchat.android.activity.SearchFriendActivity" />
+        <activity android:name="io.jchat.android.activity.SearchFriendDetailActivity" />
+        <activity android:name="io.jchat.android.activity.SendInvitationActivity" />
+        <activity android:name="io.jchat.android.activity.SendLocationActivity"/>
+        <activity android:name="io.jchat.android.activity.SendFileActivity"/>
+        <activity android:name="io.jchat.android.activity.PlayVideoActivity"/>
+        <activity android:name="io.jchat.android.activity.AtMemberActivity"/>
+
+
+        <activity android:name="com.owo.module_b_main.AtyMain"
+            android:theme="@style/MyNoActionBar"
+            android:screenOrientation="portrait"/>
+        <activity android:name="com.owo.module_a_login.AtyLoginOrRegister"
+            android:theme="@style/MyNoActionBar"
+            android:screenOrientation="portrait"/>
+        <activity android:name="com.owo.module_a_register.AtyRegister"
+            android:theme="@style/MyNoActionBar"
+            android:screenOrientation="portrait"/>
+        <activity android:name="com.owo.module_c_detail.AtyDetail"
+            android:theme="@style/MyNoActionBar"
+            android:screenOrientation="portrait"/>
+        <activity android:name="com.owo.module_c_mylabel.AtyMyLabel"
+            android:theme="@style/MyNoActionBar"
+            android:screenOrientation="portrait"/>
+        <activity android:name="com.owo.module_a_selectlabel.widgets.AtySelectLabel"
+            android:theme="@style/MyNoActionBar"
+            android:screenOrientation="portrait"/>
+        <activity android:name="com.owo.module_c_comment_user.widgets.AtyCommUser"
+            android:theme="@style/MyNoActionBar"
+            android:screenOrientation="portrait"/>
+        <activity android:name="com.owo.module_b_explore.SearchUserAty"
+            android:theme="@style/MyNoActionBar"
+            android:screenOrientation="portrait"/>
+        <activity android:name="com.owo.module_b_home.SearchTaskAty"
+            android:theme="@style/MyNoActionBar"
+            android:screenOrientation="portrait"/>
+
+
+        <!-- Rich push 核心功能 since 2.0.6-->
+        <activity
+            android:name="cn.jpush.android.ui.PopWinActivity"
+            android:exported="false"
+            android:theme="@style/MyDialogStyle"></activity>
+
+        <!-- Required SDK核心功能-->
+        <activity
+            android:name="cn.jpush.android.ui.PushActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:exported="false"
+            android:theme="@android:style/Theme.NoTitleBar">
+            <intent-filter>
+                <action android:name="cn.jpush.android.ui.PushActivity" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="com.wao.dogcat" />
+            </intent-filter>
+        </activity>
+
+        <!-- 分享组件 -->
+        <activity
+            android:name="com.mob.tools.MobUIShell"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:windowSoftInputMode="stateHidden|adjustResize">
+            <!--
+                       如果集成QQ分享，或者使用QQ客户端来进行QQ空间的分享，须要在此处添加一个对ACTION_VIEW
+                       事件的过滤器，其中的scheme是“tencent”前缀再开发者应用的加上appId。如果此过滤器不设置，
+                       则分享结束以后不能得到正确的回调
+                   -->
+            <intent-filter>
+                <data android:scheme="tencent1106086902" />
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.BROWSABLE" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+
+            <!-- 调用新浪原生SDK，需要注册的回调activity -->
+            <intent-filter>
+                <action android:name="com.sina.weibo.sdk.action.ACTION_SDK_REQ_ACTIVITY" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+
+            <!--集成line客户端登录授权，需要添如下格式的过滤器-->
+            <intent-filter>
+                <data android:scheme="line.1477692153" />
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.BROWSABLE" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+
+        </activity>
+        <!--微信分享回调 -->
+        <activity
+            android:name=".wxapi.WXEntryActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+
+
+
+    </application>
+
+</manifest>

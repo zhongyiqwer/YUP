@@ -1,0 +1,117 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/transparent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/retangle_large_white"
+        android:elevation="5dp"
+        android:orientation="vertical">
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="30dp"
+                android:orientation="vertical">
+
+                <ScrollView
+                    android:id="@+id/gdvMiddle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="30dp"
+                        android:orientation="vertical">
+                        <TextView
+                            android:layout_marginBottom="20dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="发现没有主人的宝箱\n\n\n宝箱内宝物为"
+                            android:textColor="@color/themeColor"
+                            android:textSize="16sp" />
+                        <LinearLayout
+                            android:orientation="horizontal"
+                            android:gravity="center_horizontal"
+                            android:layout_marginTop="10dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <ImageView
+                                android:id="@+id/image"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginRight="20dp"
+                                android:src="@drawable/item_fail" />
+                            <TextView
+                                android:id="@+id/goldNum"
+                                android:visibility="gone"
+                                android:gravity="center_vertical"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:text="X 500"/>
+                        </LinearLayout>
+
+                        <Button
+                            android:id="@+id/digBtn"
+                            android:paddingLeft="35dp"
+                            android:paddingRight="35dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="35dp"
+                            android:layout_marginTop="25dp"
+                            android:background="@drawable/btn_shape_yellow"
+                            android:layout_gravity="center"
+                            android:text="挖走"
+                            android:elevation="5dp"
+                            android:onClick="onClick"
+                            android:textColor="@color/themeColor"
+                            android:textSize="16sp" />
+
+                        <Button
+                            android:id="@+id/cancelBtn"
+                            android:paddingLeft="20dp"
+                            android:paddingRight="20dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="35dp"
+                            android:layout_marginTop="20dp"
+                            android:background="@drawable/btn_shape_yellow"
+                            android:layout_gravity="center"
+                            android:text="埋回原处"
+                            android:elevation="5dp"
+                            android:onClick="onClick"
+                            android:textColor="@color/themeColor"
+                            android:textSize="16sp"/>
+
+
+                    </LinearLayout>
+
+
+
+                </ScrollView>
+
+
+
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

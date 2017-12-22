@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <!-- android:layerType="software"-->
+
+    <include
+        android:id="@+id/header_frag_explore"
+        layout="@layout/common_header_search_and_recommend">
+    </include>
+
+    <RelativeLayout
+        android:id="@+id/frag_explore_main_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/header_frag_explore">
+
+    </RelativeLayout>
+
+</RelativeLayout>

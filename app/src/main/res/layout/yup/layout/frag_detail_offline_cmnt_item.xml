@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cardView_offline_cmnt"
+    android:layout_width="match_parent"
+    android:layout_height="160dp"
+    android:layout_marginLeft="12dp"
+    android:layout_marginRight="12dp"
+    android:layout_marginTop="10dp"
+    android:orientation="vertical"
+    app:cardCornerRadius="10dp">
+
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_margin="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:orientation="horizontal">
+        <LinearLayout
+            android:layout_weight="2"
+            android:orientation="horizontal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content">
+        <com.wao.dogcat.widget.CircleImageView
+            android:id="@+id/offline_cmnt_portrait"
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            app:border_color="@color/textGray"
+            app:border_width="1dp"
+            android:src="@drawable/my">
+        </com.wao.dogcat.widget.CircleImageView>
+        <TextView
+            android:id="@+id/offline_cmnt_username"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="12dp"
+            android:text="username"
+            android:maxLines="2"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:textColor="@color/textGray"
+            android:textSize="14sp"/>
+            </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_weight="2"
+            android:layout_width="0dp"
+            android:layout_gravity="end"
+            android:layout_height="wrap_content">
+        <com.wao.dogcat.widget.MyRatingBar
+            android:id="@+id/offline_ratingbar"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="right"
+            app:starEmpty="@drawable/xianxia_pingjiayonghu_star_gary"
+            app:starFill="@drawable/xianxia_pingjiayonghu_star_yellow"
+            app:starHalf="@drawable/xianxia_pingjiayonghu_star_gary"
+            app:starImageSize="15dp"
+            app:starPadding="5dp"
+            app:starCount="5"
+            app:starStep="0.5"
+            app:stepSize="Half" />
+        <TextView
+            android:id="@+id/offline_total_score"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="right"
+            android:text="0.0"
+            android:textColor="@color/yupColor"
+            android:textSize="14sp"
+            />
+        </LinearLayout>
+        </LinearLayout>
+        <TextView
+            android:id="@+id/offline_cmnt_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:text="Comment Contentnt"
+            android:textColor="@color/themeColor"
+            android:maxLines="4"
+            android:ellipsize="end"
+            android:textSize="14sp"
+            />
+    </LinearLayout>
+
+</android.support.v7.widget.CardView>

@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/transparent"
+    android:orientation="vertical" >
+
+
+    <LinearLayout
+        android:layout_width="300dp"
+        android:layout_height="460dp"
+        android:orientation="vertical"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/retangle_large_white"
+        android:elevation="5dp"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <EditText
+                android:id="@+id/activity_jike_name"
+                android:layout_marginTop="15dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:background="@drawable/bg_searchview"
+                android:textColorHint="@color/lightGray"
+                android:hint="填写活动名称"
+                android:textSize="14sp"
+                android:maxLength="100"
+                android:padding="10dp"/>
+            <EditText
+                android:id="@+id/activity_jike_description"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/bg_searchview"
+                android:gravity="start"
+                android:hint="请填写活动描述"
+                android:maxLines="100"
+                android:maxLength="250"
+                android:textSize="14sp"
+                android:textColorHint="@color/lightGray"
+                android:padding="10dp"
+                />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="4dp"
+                android:layout_marginTop="15dp"
+                android:textSize="12sp"
+                android:text="选择招募时间"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/ten_min"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="25dp"
+                    android:layout_gravity="center"
+                    android:layout_marginRight="5dp"
+                    android:background="@drawable/btn_capsule_empty_yellow"
+                    android:onClick="onClick"
+                    android:text="10分钟"
+                    android:textColor="@color/themeColor"
+                    android:textSize="11sp" />
+
+                <Button
+                    android:id="@+id/twenty"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="25dp"
+                    android:layout_gravity="center"
+                    android:layout_marginRight="5dp"
+                    android:background="@drawable/btn_capsule_empty_yellow"
+                    android:onClick="onClick"
+                    android:text="20分钟"
+                    android:textColor="@color/themeColor"
+                    android:textSize="11sp" />
+
+                <Button
+                    android:id="@+id/thirty_min"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="25dp"
+                    android:layout_gravity="center"
+                    android:layout_marginRight="5dp"
+                    android:background="@drawable/btn_capsule_yellow"
+                    android:onClick="onClick"
+                    android:text="30分钟"
+                    android:textColor="@color/white"
+                    android:textSize="11sp" />
+
+                <Button
+                    android:id="@+id/sixty_min"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="25dp"
+                    android:layout_gravity="center"
+                    android:layout_marginRight="5dp"
+                    android:background="@drawable/btn_capsule_empty_yellow"
+                    android:onClick="onClick"
+                    android:text="60分钟"
+                    android:textColor="@color/themeColor"
+                    android:textSize="11sp" />
+
+            </LinearLayout>
+            <zhouyou.flexbox.widget.TagFlowLayout
+                android:id="@+id/flowlayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </zhouyou.flexbox.widget.TagFlowLayout>
+
+        </LinearLayout>
+
+
+        <!--
+        <EditText
+            android:id="@+id/activity_jike_where"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:background="@drawable/bg_searchview"
+            android:textColorHint="@color/lightGray"
+            android:hint="填写活动地点"
+            android:textSize="14sp"
+            android:maxLength="255"
+            android:padding="10dp"/>
+            -->
+
+        <EditText
+            android:id="@+id/activity_jike_num"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:background="@drawable/bg_searchview"
+            android:textColorHint="@color/lightGray"
+            android:hint="填写期望参与的人数"
+            android:inputType="numberSigned"
+            android:textSize="14sp"
+            android:maxLength="3"
+            android:padding="10dp"/>
+
+        <EditText
+            android:id="@+id/activity_jike_money"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:background="@drawable/bg_searchview"
+            android:textColorHint="@color/lightGray"
+            android:hint="填写每个参与者需要支付的金币数"
+            android:inputType="numberSigned"
+            android:textSize="14sp"
+            android:maxLength="5"
+            android:padding="10dp"/>
+
+        <ImageButton
+            android:id="@+id/activity_jike_imagebtn_image"
+            android:layout_margin="10dp"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:scaleType="centerInside"
+            android:background="@color/white"
+            android:src="@drawable/xianxia_fabu_addpicture"/>
+
+        <Button
+            android:id="@+id/acttivity_jike_publish"
+            android:background="@drawable/bg_btn_next_step"
+            android:textColor="@color/white"
+            android:layout_width="match_parent"
+            android:textSize="14dp"
+            android:layout_margin="10dp"
+            android:layout_height="35dp"
+            android:text="发布即刻活动"/>
+
+    </LinearLayout>
+
+</LinearLayout>
