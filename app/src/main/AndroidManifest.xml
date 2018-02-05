@@ -72,6 +72,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
+
         <meta-data android:name="AA_DB_NAME" android:value="jchat.db"/>
         <meta-data
             android:name="AA_MODELS"
@@ -183,7 +184,7 @@
 
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
-            android:value="DyivwoFeCliVjmopXIgcqBrAMLHPdejA" />
+            android:value="SvomLq1AvtNldx0tOMaysyE3iYqwGzsw" />
 
         <service android:name=".controller.server.TimeService" />
         <receiver android:name=".controller.server.MyAlarmReceiver"></receiver>

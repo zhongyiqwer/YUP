@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/WAO.iml" filepath="$PROJECT_DIR$/WAO.iml" />
+      <module fileurl="file://F:\Android_WorkSpace_3.0\YUP\WAO.iml" filepath="F:\Android_WorkSpace_3.0\YUP\WAO.iml" />
+      <module fileurl="file://$PROJECT_DIR$/YUP.iml" filepath="$PROJECT_DIR$/YUP.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/flexbox/flexbox.iml" filepath="$PROJECT_DIR$/flexbox/flexbox.iml" />
     </modules>

@@ -2,6 +2,7 @@ package com.owo.module_b_home.widgets;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -41,6 +42,10 @@ import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
+import com.baidu.mapapi.clusterutil.MarkerClusterDemo;
+import com.baidu.mapapi.clusterutil.MyItem;
+import com.baidu.mapapi.clusterutil.clustering.Cluster;
+import com.baidu.mapapi.clusterutil.clustering.ClusterManager;
 import com.baidu.mapapi.map.BaiduMap;
 import com.baidu.mapapi.map.BitmapDescriptor;
 import com.baidu.mapapi.map.BitmapDescriptorFactory;
@@ -205,6 +210,12 @@ public class FragHomeNormal extends FragBase implements ViewHome {
     private long restTime;
 
     ViewHolder viewHolder = null;
+
+    LatLng mLoction = null;
+
+    MapStatus ms;
+
+    ClusterManager mClusterManager;
 
 
     @Nullable
@@ -548,6 +559,7 @@ public class FragHomeNormal extends FragBase implements ViewHome {
 
     }
 
+
     /**
      * 初始化AMap对象
      */
@@ -597,11 +609,37 @@ public class FragHomeNormal extends FragBase implements ViewHome {
 
         /////////////////////////////////////
 
+        /**
+         * 聚合功能后的点击事件
+         */
+        UtilLog.e("FrageHomeNormal","开始进入聚合点击"+getContext());
+      /*  MarkerClusterDemo markerClusterDemo = MarkerClusterDemo.getSingleton();
+        markerClusterDemo.updataMap();
+        markerClusterDemo.init(getContext(),mBaiduMap);
+        ClusterManager mClusterManager = markerClusterDemo.getClusterManager();
+        if (mClusterManager!=null){
+            UtilLog.e("FrageHomeNormal","mClusterManager不为空");
+        }else {
+            UtilLog.e("FrageHomeNormal","mClusterManager为空");
+        }
+        // 设置地图监听，当地图状态发生改变时，进行点聚合运算
+        if (mClusterManager!=null){
+            UtilLog.e("FrageHomeNormal","mClusterManager不为空");
+        }else {
+            UtilLog.e("FrageHomeNormal","mClusterManager为空");
+        }
+        mBaiduMap.setOnMapStatusChangeListener(mClusterManager);
+        // 设置maker点击时的响应
+        mBaiduMap.setOnMarkerClickListener(mClusterManager);
+        UtilLog.e("FrageHomeNormal","聚合点击");*/
+
+
 
          /*对Marker的点击*/
-        mBaiduMap.setOnMarkerClickListener(new BaiduMap.OnMarkerClickListener() {
+ /*        mBaiduMap.setOnMarkerClickListener(new BaiduMap.OnMarkerClickListener() {
             @Override
             public boolean onMarkerClick(final Marker marker) {
+                UtilLog.e("FrageHome","点击事件");
                 if (marker.getTitle().equals("camera")) {
                     HashMap<String, Object> camHM =
                             (HashMap<String, Object>) marker.getExtraInfo().get("camInfo");
@@ -666,7 +704,7 @@ public class FragHomeNormal extends FragBase implements ViewHome {
                 }
                 return true;
             }
-        });
+        });*/
 
 
         mBaiduMap.setOnMapClickListener(new BaiduMap.OnMapClickListener() {
@@ -715,7 +753,8 @@ public class FragHomeNormal extends FragBase implements ViewHome {
             mBaiduMap.setMyLocationData(locData);
             myLatitude = location.getLatitude();
             myLongtitude = location.getLongitude();
-
+            //自己位置
+            mLoction = new LatLng(myLatitude,myLongtitude);
 
             if (isFirstLatLng) {
                 isFirstLatLng = false;
@@ -1083,12 +1122,136 @@ public class FragHomeNormal extends FragBase implements ViewHome {
 //        }
 //
 //    };
+    public void mClusterManagerClick(ClusterManager mClusterManager){
+        // 设置地图监听，当地图状态发生改变时，进行点聚合运算
+        if (mClusterManager!=null){
+            UtilLog.e("FrageHomeNormal","mClusterManager不为空");
+        }else {
+            UtilLog.e("FrageHomeNormal","mClusterManager为空");
+        }
+
+        mBaiduMap.setOnMapStatusChangeListener(mClusterManager);
+        // 设置maker点击时的响应
+        mBaiduMap.setOnMarkerClickListener(mClusterManager);
+
+        UtilLog.e("FrageHomeNormal","聚合点击");
+        //点击聚合后的点
+        mClusterManager.setOnClusterClickListener(new ClusterManager.OnClusterClickListener<MyItem>() {
+            @Override
+            public boolean onClusterClick(Cluster<MyItem> cluster) {
+                //点的个数
+                int count = cluster.getSize();
+                Toast.makeText(getContext(),"有"+count+"个act",Toast.LENGTH_SHORT).show();
+                // TODO: 2018/2/1
+                // 可以对聚合点点击事件做进一步修改
+                return true;
+            }
+
+        });
+
+        //点击点单个Item
+
+        mClusterManager.setOnClusterItemClickListener(new ClusterManager.OnClusterItemClickListener<MyItem>() {
+            @Override
+            public boolean onClusterItemClick(MyItem item) {
+                Toast.makeText(getContext(),"点击单个act",Toast.LENGTH_SHORT).show();
+                Bundle bundle = item.getBundle();
+                String act = bundle.getString("actOwn");
+
+                //随意弄的坐标和图片,为了不报错
+                LatLng latLng = new LatLng(38,121);
+                OverlayOptions op = new MarkerOptions().position(latLng).
+                        icon(BitmapDescriptorFactory
+                                .fromResource(R.drawable.map_reality)).zIndex(5).alpha(0);
+
+
+                Marker marker  = (Marker) (mBaiduMap.addOverlay(op));
+                Bundle bundle1 = new Bundle();
+                //判断属于哪一种活动
+                if (act.equals("act")){
+                    BeanTask beanTask = (BeanTask) bundle.getSerializable("actInfo");
+                    bundle1.putSerializable("actInfo",beanTask);
+                    marker.setExtraInfo(bundle1);
+                    marker.setTitle("act");
+                }else if (act.equals("myAct")){
+                    bundle1 = bundle.getBundle("myActBundle");
+                    marker.setExtraInfo(bundle1);
+                    marker.setTitle("myAct");
+                }
+
+
+                if (marker.getTitle().equals("camera")) {
+                    HashMap<String, Object> camHM =
+                            (HashMap<String, Object>) marker.getExtraInfo().get("camInfo");
+                    MapUtil.viewMomentCamInfo(mBaiduMap, marker, camHM, getContext());
+                } else if (marker.getTitle().equals("text")) {
+                    HashMap<String, Object> txtHM =
+                            (HashMap<String, Object>) marker.getExtraInfo().get("txtInfo");
+                    MapUtil.viewMomentTxtInfo(mBaiduMap, marker, txtHM, getContext());
+                } else if (marker.getTitle().equals("myCamera")) {
+                    HashMap<String, Object> camHM =
+                            (HashMap<String, Object>) marker.getExtraInfo().get("myCamInfo");
+                    MapUtil.viewMomentCamInfo(mBaiduMap, marker, camHM, getContext());
+                } else if (marker.getTitle().equals("myText")) {
+                    HashMap<String, Object> camHM =
+                            (HashMap<String, Object>) marker.getExtraInfo().get("myTextInfo");
+                    MapUtil.viewMomentTxtInfo(mBaiduMap, marker, camHM, getContext());
+                } else if (marker.getTitle().equals("act")) {
+
+
+                    BeanTask camHM =
+                            (BeanTask) marker.getExtraInfo().get("actInfo");
+                    //如果点击的是上一次点击的点，则取消视图，否则显示
+                    //实际效果是点击非marker取消视图
+                    int taskId =-1;
+                    if (taskId == camHM.getTaskId()){
+                        markerInfo.setVisibility(View.GONE);
+                    }else {
+                        markerInfo.setVisibility(View.VISIBLE);
+                    }
+                    popInfo(camHM);
+                } else if (marker.getTitle().equals("myAct")){
+                    HashMap<String, String> hm =
+                            (HashMap<String, String>) marker.getExtraInfo().get("actMapInfo");
+                    BeanTask task = new BeanTask();
+                    task.setSex(Common.user.getSex().trim().length()==0 ? 1:
+                            Integer.parseInt(Common.user.getSex()));
+                    task.setTaskType(Integer.parseInt(hm.get("taskType")));
+                    task.setTaskLabel(hm.get("taskLabel").toString());
+                    task.setTaskDeadLine(DateTimeHelper.FormatTime2timeMillis(hm.get("taskDeadline").toString(),
+                            "yyyy-MM-dd HH:mm:ss")+"");
+                    task.setTaskContent(hm.get("taskContent").toString());
+                    task.setTaskName(hm.get("taskName").toString());
+                    task.setTaskIamge(hm.get("taskImage").toString());
+                    task.setTaskMoney(Integer.parseInt(hm.get("taskMoney")));
+                    task.setTaskMaxNum(Integer.parseInt(hm.get("taskMaxNum")));
+                    task.setTaskLatitude(hm.get("taskLatitude").toString());
+                    task.setTaskLongitude(hm.get("taskLongitude").toString());
+                    task.setTaskUserID(Integer.parseInt(hm.get("taskUserID")));
+                    task.setAvatar(Common.user.getAvatar());
+                    task.setUserName(Common.user.getUserName());
+
+                    int taskId =-1;
+                    if (taskId == task.getTaskId()){
+                        markerInfo.setVisibility(View.GONE);
+                    }else {
+                        markerInfo.setVisibility(View.VISIBLE);
+                    }
+                    popInfo(task);
+                }
+                return true;
+            }
+        });
+    }
+
     public Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case 1:
-                    MapUtil.addAct(mBaiduMap, nearbyTask);
+                    //多传了一个上线下文
+                    mClusterManager = MapUtil.addAct(getContext(),mBaiduMap, nearbyTask);
+                    mClusterManagerClick(mClusterManager);
                     try {
                         HashMap<String,String> map = new HashMap<>();
                         map.put("userID",Common.userID+"");

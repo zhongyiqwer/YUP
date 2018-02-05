@@ -55,10 +55,10 @@ public class App extends com.activeandroid.app.Application {
     public static final String GROUP_ID = "groupId";
     public static String PICTURE_DIR = "sdcard/JChatDemo/pictures/";
 
-         protected void attachBaseContext(Context base) {
-                 super.attachBaseContext(base);
-                 MultiDex.install(this) ;
-             }
+    protected void attachBaseContext(Context base) {
+             super.attachBaseContext(base);
+             MultiDex.install(this) ;
+         }
 
     //在application中初始化sdk，这个初始化最好放在application的程序入口中，防止意外发生
     @Override

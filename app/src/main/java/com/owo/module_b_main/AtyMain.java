@@ -42,12 +42,16 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.baidu.mapapi.clusterutil.MarkerClusterDemo;
+import com.baidu.mapapi.clusterutil.MyItem;
+import com.baidu.mapapi.clusterutil.clustering.ClusterManager;
 import com.baidu.mapapi.map.BaiduMap;
 import com.baidu.mapapi.map.BitmapDescriptorFactory;
 import com.baidu.mapapi.map.Marker;
 import com.baidu.mapapi.map.MarkerOptions;
 import com.baidu.mapapi.map.OverlayOptions;
 import com.baidu.mapapi.model.LatLng;
+import com.nightonke.boommenu.Util;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.owo.module_a_login.AtyLoginOrRegister;
 import com.owo.module_a_selectlabel.widgets.AtySelectLabel;
@@ -1002,7 +1006,8 @@ public class AtyMain extends AppCompatActivity implements ViewAddAty {
         Marker marker = null;
         if (latLng.longitude != 0 &&
                 latLng.latitude != 0) {
-            if (taskType == 1) {
+
+ /*           if (taskType == 1) {
                 op = new MarkerOptions().position(latLng)
                         .icon(BitmapDescriptorFactory// 构建mark图标
                                 .fromResource(R.drawable.map_online)).zIndex(5);
@@ -1016,11 +1021,36 @@ public class AtyMain extends AppCompatActivity implements ViewAddAty {
                 op = new MarkerOptions().position(latLng)
                         .icon(BitmapDescriptorFactory// 构建mark图标
                                 .fromResource(R.drawable.map_immediately)).zIndex(5);
-            }
+            }*/
 
-            marker = (Marker) (baiduMap.addOverlay(op));
+            /*marker = (Marker) (baiduMap.addOverlay(op));
+            //没有上一行，这里会报错，最后发布成功，但是地图上没有显示，因为地图数据是从marker上获取的
             marker.setExtraInfo(bundle);
             marker.setTitle("myAct");
+
+            UtilLog.e("AtyMainLog","添加活动");
+            UtilLog.e("AtyMainLog","添加活动"+latLng);
+            UtilLog.e("AtyMainLog","添加活动"+taskType);
+            UtilLog.e("AtyMainLog","添加活动"+marker.getExtraInfo());
+            //聚合后发起活动
+            MyItem myItem = new MyItem(latLng,taskType,marker);*/
+            UtilLog.e("FrageHomeNormalAtyMainLog","添加活动");
+            Bundle bundle1 = new Bundle();
+            bundle1.putString("actOwn","myAct");
+            bundle1.putBundle("myActBundle",bundle);
+            MyItem myItem = new MyItem(latLng,taskType,bundle1);
+            MarkerClusterDemo markerClusterDemo = MarkerClusterDemo.getSingleton();
+            ClusterManager clusterManager = markerClusterDemo.getClusterManager();
+            if (clusterManager==null){
+                UtilLog.e("FrageHomeNormalAtyMainLog","clusterManager为空");
+            }else {
+                UtilLog.e("FrageHomeNormalAtyMainLog","clusterManager不为空");
+            }
+            clusterManager.addItem(myItem);
+            //不知道有没有用，为了解觉添加后要对地图进行操作才显示的情况
+            //markerClusterDemo.updataMap();
+            //clusterManager.onMapStatusChange(baiduMap.getMapStatus());
+            //markerClusterDemo.updataMap();
         }
 
     }

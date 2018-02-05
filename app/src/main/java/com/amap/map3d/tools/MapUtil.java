@@ -20,6 +20,9 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.baidu.mapapi.clusterutil.MarkerClusterDemo;
+import com.baidu.mapapi.clusterutil.MyItem;
+import com.baidu.mapapi.clusterutil.clustering.ClusterManager;
 import com.baidu.mapapi.map.BaiduMap;
 import com.baidu.mapapi.map.BitmapDescriptor;
 import com.baidu.mapapi.map.BitmapDescriptorFactory;
@@ -35,9 +38,11 @@ import com.baidu.mapapi.model.LatLng;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.owo.module_b_home.bean.BeanTask;
+import com.owo.module_b_home.widgets.FragHomeNormal;
 import com.owo.module_c_detail.AtyDetail;
 import com.owo.utils.Common;
 import com.owo.utils.DateTimeHelper;
+import com.owo.utils.UtilLog;
 import com.owo.utils.util_http.HttpHelper;
 import com.owo.utils.util_http.MyURL;
 import com.wao.dogcat.R;
@@ -884,20 +889,78 @@ public class MapUtil {
 
     }
 
+
     //添加地图上的活动
-    public static void addAct(BaiduMap baiduMap, List<BeanTask>
+    //Context 是自己后来加上的
+    public static ClusterManager addAct(Context context,BaiduMap baiduMap, List<BeanTask>
             txtLists ) {
+        MarkerClusterDemo markerClusterDemo = null;
+        ClusterManager<MyItem> clusterManager = null;
         try {
+            UtilLog.e("FrageHomeNormaladd","进入addAct"+context);
+            UtilLog.e("FrageHomeNormaladd","进入addAct");
+            markerClusterDemo = MarkerClusterDemo.getSingleton();
+            markerClusterDemo.init(context,baiduMap);
+            markerClusterDemo.updataMap();
+            clusterManager = markerClusterDemo.getClusterManager();
+            if (clusterManager==null){
+                UtilLog.e("FrageHomeNormaladd","clusterManager为空");
+            }else {
+                UtilLog.e("FrageHomeNormaladd","clusterManager不为空");
+            }
+            UtilLog.e("FrageHomeNormaladd"," "+txtLists.size());
             if (txtLists != null && txtLists.size() != 0) {
+
                 LatLng latLng = null;
                 OverlayOptions op = null;
                 Marker marker = null;
+                List<MyItem> items = new ArrayList<MyItem>();
+
+                for (int i = 0; i < txtLists.size(); i++) {
+                    if (txtLists.get(i).getTaskLatitude().trim().length() != 0 &&
+                            txtLists.get(i).getTaskLongitude().trim().length() != 0) {
+
+                        BeanTask beanTask= txtLists.get(i);
+                        latLng = new LatLng(Double.parseDouble(beanTask.getTaskLatitude()),
+                                (Double.parseDouble(beanTask.getTaskLongitude())));
+                        int taskType = beanTask.getTaskType();
+
+                        Bundle bundle = new Bundle();
+                        bundle.putSerializable("actInfo", txtLists.get(i));
+                        bundle.putString("actOwn","act");
+
+                       /* marker = (Marker) (mBaiduMap.addOverlay(op));
+                        Bundle bundle = new Bundle();
+                        bundle.putSerializable("actInfo", txtLists.get(i));
+                        marker.setExtraInfo(bundle);
+                        marker.setTitle("act");*/
+
+                        items.add(new MyItem(latLng,taskType,bundle));
+                    }
+                }
+                clusterManager.addItems(items);
+                //clusterManager.onMapStatusChange(baiduMap.getMapStatus());
+                //markerClusterDemo.updataMap();
+                UtilLog.e("FrageHomeNormaladd","add完毕");
+            }
+           /* UtilLog.e("FrageHomeNormaladd"," "+txtLists.size());
+            if (txtLists != null && txtLists.size() != 0) {
+
+                //   这是本来没有聚合功能的实现
+                LatLng latLng = null;
+                OverlayOptions op = null;
+                Marker marker = null;
+
 
                 for (int i = 0; i < txtLists.size(); i++) {
                     if (txtLists.get(i).getTaskLatitude().trim().length() != 0 &&
                             txtLists.get(i).getTaskLongitude().trim().length() != 0) {
                         latLng = new LatLng(Double.parseDouble(txtLists.get(i).getTaskLatitude()),
                                 (Double.parseDouble(txtLists.get(i).getTaskLongitude())));
+
+
+
+                        //.perspective(true) 开启近大远小
                         if ( txtLists.get(i).getTaskType()==2) {
                             op = new MarkerOptions().position(latLng)
                                     .icon(BitmapDescriptorFactory// 构建mark图标
@@ -919,10 +982,12 @@ public class MapUtil {
                         marker.setTitle("act");
                     }
                 }
-            }
+            }*/
+
         } catch (Exception ee) {
             ee.printStackTrace();
         }
+        return clusterManager;
     }
 
 

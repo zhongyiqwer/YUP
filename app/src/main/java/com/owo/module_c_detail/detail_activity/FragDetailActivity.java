@@ -144,6 +144,14 @@ public class FragDetailActivity extends FragBase implements ViewFragDetail {
     @BindView(R.id.noData)
     TextView noData;
 
+    /**
+     * 活动详情界面的分享按钮在这里
+     * */
+    @OnClick(R.id.btnShare)
+    public void btnShareClick(){
+        // TODO: 2018/1/25 未分享共能
+
+    }
 
     @OnClick(R.id.imageV_item_activity_avatar)
     public void viewPublishUser(){
