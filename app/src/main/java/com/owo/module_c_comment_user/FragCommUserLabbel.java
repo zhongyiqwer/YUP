@@ -251,6 +251,7 @@ public class FragCommUserLabbel extends FragBase implements ViewCommUser {
                     @Override
                     public void onSubscribe(List<BeanTag> selectedItem1) {
                         //获取到选择的除了自定义以外的数据
+                        System.out.println("one"+selectedItem1.size());
                         selectedItem.addAll(selectedItem1);
                     }
                 });
@@ -260,20 +261,31 @@ public class FragCommUserLabbel extends FragBase implements ViewCommUser {
 
     }
 
-
+//问题描述为：第一个点击标签开始为1，当点击第二个标签后第一个就变为2，以此类推
     public ArrayList<HashMap<String,String>>getParams(){
         ArrayList<HashMap<String,String>> allParams = new ArrayList<>();
         if (selectedItem.size()>0) {
-            for (int i = 0; i < selectedItem.size(); i++) {
+
+            System.out.println("two selectedItem"+selectedItem.size());
+            List<BeanTag> selectedItem2 = new ArrayList<>();
+            for (int i=0;i<selectedItem.size();i++){
+                if (!selectedItem2.contains(selectedItem.get(i))){
+                    selectedItem2.add(selectedItem.get(i));
+                }
+            }
+            System.out.println("three selectedItem2"+selectedItem2.size());
+
+            for (int i = 0; i < selectedItem2.size(); i++) {
                 HashMap<String, String> param = new HashMap<>();
                 param.put("userID", Common.halfId + "");
                 param.put("userScore",((int)totalScore)+"" );
-                param.put("userLabels", selectedItem.get(i).getTag());
+                param.put("userLabels", selectedItem2.get(i).getTag());
                 allParams.add(param);
             }
         }
 
         if (tags.size()>0){
+            System.out.println("four tags"+tags.size());
             for (int i = 0; i < tags.size(); i++) {
                 HashMap<String, String> param = new HashMap<>();
                 param.put("userID", Common.halfId + "");
