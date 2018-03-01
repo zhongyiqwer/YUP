@@ -15,6 +15,9 @@ public class MyURL {
     public static final String UPDATE_URL = ROOT + "Version/getVersion";
 
     ///////////////User///////////////
+
+    public static final String UPDATE_BEHAVIOR = ROOT + "User/updateBehavior";
+
     public static final String GET_USER_BY_ID = ROOT + "User/getUserByID";
     public static final String GET_ID_BY_PHONE_AND_PW = ROOT + "User/getIDByPhoneAndPw";
     public static final String INSERT_USER = ROOT + "User/insertUser";

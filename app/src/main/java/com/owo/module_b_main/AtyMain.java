@@ -29,6 +29,7 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.util.TimeUtils;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -57,6 +58,7 @@ import com.owo.module_a_login.AtyLoginOrRegister;
 import com.owo.module_a_selectlabel.widgets.AtySelectLabel;
 import com.owo.module_b_home.widgets.FragHomeNormal;
 import com.owo.utils.DateTimeHelper;
+import com.owo.utils.UtilTime;
 import com.owo.utils.util_http.HttpHelper;
 import com.owo.utils.util_http.MyURL;
 import com.owo.widget.DateTimePickDialogUtil;
@@ -73,9 +75,13 @@ import com.owo.utils.UtilLog;
 
 
 import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -93,6 +99,7 @@ import io.github.douglasjunior.androidSimpleTooltip.SimpleTooltip;
 
 import io.jchat.android.chatting.utils.HandleResponseCode;
 import io.jchat.android.chatting.utils.SharePreferenceManager;
+import io.jchat.android.chatting.utils.TimeFormat;
 import zhouyou.flexbox.adapter.TagAdapter;
 import zhouyou.flexbox.interfaces.OnFlexboxSubscribeListener;
 import zhouyou.flexbox.widget.BaseTagView;
@@ -225,8 +232,6 @@ public class AtyMain extends AppCompatActivity implements ViewAddAty {
             if (mRecentTips.getVisibility() == View.VISIBLE)
                 mRecentTips.setVisibility(View.GONE);
         }
-
-
 
     }
 
@@ -1167,6 +1172,53 @@ public class AtyMain extends AppCompatActivity implements ViewAddAty {
         super.onDestroy();
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        //程序启动，给服务其发送当前时间和UserID
+        Long startTime = System.currentTimeMillis();
+        String time = UtilTime.timeFormat(startTime);
+        UtilLog.e("AtyMain",time);
+
+        Timer timer = new Timer();
+        TimerTask task = new TimerTask() {
+            @Override
+            public void run() {
+                try {
+                    String result = HttpHelper.postData(MyURL.UPDATE_BEHAVIOR,
+                            UtilTime.getEnterTimeMap(mUserId), null);
+                    int code = HttpHelper.getCode(result);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+        timer.schedule(task, 100);
+    }
+
+    @Override
+    protected void onStop() {
+        //程序结束，给服务其发送当前时间和UserID
+        Long startTime = System.currentTimeMillis();
+        String time = UtilTime.timeFormat(startTime);
+        UtilLog.e("AtyMain",time);
+
+        Timer timer = new Timer();
+        TimerTask task = new TimerTask() {
+            @Override
+            public void run() {
+                try {
+                    String result = HttpHelper.postData(MyURL.UPDATE_BEHAVIOR,
+                            UtilTime.getLeaveTimeMap(mUserId), null);
+                    int code = HttpHelper.getCode(result);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+        timer.schedule(task, 100);
+        super.onStop();
+    }
 
     @Override
     protected void onPause() {
