@@ -20,6 +20,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -28,9 +29,11 @@ import com.owo.module_b_personal.bean.BeanUser;
 import com.owo.module_b_personal.presenter.PresenterPersonalImpl;
 import com.owo.module_c_detail.AtyDetail;
 import com.owo.module_c_detail.detail_activity_comment.view_comment.AdapterRecyclerView;
+import com.owo.utils.BitmapUtil;
 import com.owo.utils.Common;
 import com.owo.utils.Constants;
 import com.owo.utils.DateTimeHelper;
+import com.owo.utils.UtilLog;
 import com.owo.utils.util_http.HttpHelper;
 import com.owo.utils.util_http.MyURL;
 import com.wao.dogcat.R;
@@ -51,12 +54,17 @@ import java.util.TimerTask;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import cn.sharesdk.framework.Platform;
+import cn.sharesdk.framework.PlatformActionListener;
+import cn.sharesdk.framework.ShareSDK;
+import cn.sharesdk.onekeyshare.OnekeyShare;
+import cn.sharesdk.tencent.qq.QQ;
 
 /**
  * @author XQF
  * @created 2017/5/23
  */
-public class FragDetailActivity extends FragBase implements ViewFragDetail {
+public class FragDetailActivity extends FragBase implements ViewFragDetail{
 
 
     public static FragDetailActivity newInstance(BeanTask beanTask) {
@@ -149,7 +157,34 @@ public class FragDetailActivity extends FragBase implements ViewFragDetail {
      * */
     @OnClick(R.id.btnShare)
     public void btnShareClick(){
-        // TODO: 2018/1/25 未分享共能
+        ShareSDK.initSDK(getContext());
+        OnekeyShare oks = new OnekeyShare();
+        //关闭sso授权
+        oks.disableSSOWhenAuthorize();
+        String taskImageURL = MyURL.ROOT + mBeanTask.getTaskIamge();
+        String time = "截止时间：" + DateTimeHelper.timeMillis2FormatTime(
+                        mBeanTask.getTaskDeadLine(), "yyyy.MM.dd");
+        String where = "地址:"+getWhere(mBeanTask.getTaskLatitude(), mBeanTask.getTaskLongitude());
+        System.out.println(time +""+ where);
+        System.out.println(taskImageURL);
+        // title标题，印象笔记、邮箱、信息、微信、人人网和QQ空间等使用
+        oks.setTitle("yup! "+mBeanTask.getTaskName());
+        // titleUrl是标题的网络链接，QQ和QQ空间等使用
+        oks.setTitleUrl("http://yup.sxl.cn/");
+        // text是分享文本，所有平台都需要这个字段
+        oks.setText("yup!活动分享,"+mBeanTask.getTaskContent()+" "+time+" "+where);
+        // imagePath是图片的本地路径，Linked-In以外的平台都支持此参数
+        oks.setImageUrl(taskImageURL);
+        // url仅在微信（包括好友和朋友圈）中使用
+        oks.setUrl("http://yup.sxl.cn/");
+        // comment是我对这条分享的评论，仅在人人网和QQ空间使用
+        oks.setComment("yup！是一款很好用的软件");
+        // site是分享此内容的网站名称，仅在QQ空间使用
+        oks.setSite(getString(R.string.app_name));
+        // siteUrl是分享此内容的网站地址，仅在QQ空间使用
+        oks.setSiteUrl("http://yup.sxl.cn/");
+        // 启动分享GUI
+        oks.show(getContext());
 
     }
 
@@ -168,7 +203,6 @@ public class FragDetailActivity extends FragBase implements ViewFragDetail {
         catch (Exception e){
             e.printStackTrace();
         }
-
 
 
 

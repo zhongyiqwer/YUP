@@ -54,7 +54,7 @@
     -->
     
     <ShareSDK 
-        AppKey = "1c03828827e1c"/> <!-- 修改成你在sharesdk后台注册的应用的appkey"-->
+        AppKey = "2449ecd925210"/> <!-- 修改成你在sharesdk后台注册的应用的appkey"-->
     
     <!-- ShareByAppClient标识是否使用微博客户端分享，默认是false -->
     <SinaWeibo
@@ -72,7 +72,7 @@
         AppKey="801307650"
         AppSecret="ae36f4ee3946e1cbb98d6965b0b2ff5c"
         RedirectUri="http://sharesdk.cn"
-        Enable="true" />
+	Enable="true" />
     
     <QZone
         Id="3"
