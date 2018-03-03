@@ -233,6 +233,12 @@
                 <category android:name="jpush.testCategory" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".controller.ChangePassWordActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"></activity>
+
         <activity
             android:name=".controller.SettingActivity"
             android:label="@string/app_name"

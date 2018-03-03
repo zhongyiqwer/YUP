@@ -179,7 +179,12 @@ public class SettingActivity extends Activity implements View.OnClickListener {
                 SettingActivity.this.startActivity(i);
                 break;
             case R.id.changePwll:
-                Common.display(SettingActivity.this, "敬请期待");
+                //Common.display(SettingActivity.this, "敬请期待");
+                //更改密码
+                Intent intent = new Intent();
+                intent.setClass(SettingActivity.this,ChangePassWordActivity.class);
+                finish();
+                SettingActivity.this.startActivity(intent);
                 break;
             case R.id.feedBackll:
                 Common.display(SettingActivity.this, "敬请期待");

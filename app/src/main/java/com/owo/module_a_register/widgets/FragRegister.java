@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.owo.module_a_login.AtyLoginOrRegister;
 import com.owo.module_a_selectlabel.widgets.AtySelectLabel;
 import com.owo.utils.util_http.MyURL;
 import com.owo.utils.util_http.URL;
@@ -101,6 +102,13 @@ public class FragRegister extends FragBase implements ViewRegister {
         super.onDestroy();
         Common.dismissProgressDialog(getContext());
     }
+
+    @OnClick(R.id.backBtn)
+    public void backBtn(){
+        start(getActivity(), AtyLoginOrRegister.class);
+        getActivity().finish();
+    }
+
 
     /**
      * 注册时的逻辑
