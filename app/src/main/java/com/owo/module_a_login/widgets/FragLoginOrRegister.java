@@ -274,15 +274,13 @@ public class FragLoginOrRegister extends FragBase implements ViewLogin {
 
 
     public void loginIM(final String username, final String password, final Context mContext) {
-        UtilLog.i("ChangePassWordActivity:","longIM"+password);
         JMessageClient.login(username, password, new BasicCallback() {
             @Override
             public void gotResult(final int status, final String desc) {
-                UtilLog.i("ChangePassWordActivity:","longIM_status"+status);
+                UtilLog.i("ChangePassWordActivity:","longIM_status:"+status);
                 if (status == 0) {
                     String username = JMessageClient.getMyInfo().getUserName();
                     String appKey = JMessageClient.getMyInfo().getAppKey();
-                    UtilLog.i("ChangePassWordActivity:","username:"+username+" appkey:"+appKey);
                     UserEntry user = UserEntry.getUser(username, appKey);
                     if (null == user) {
                         user = new UserEntry(username, appKey);

@@ -21,7 +21,6 @@ public class ModelLoginImpl implements ModelLogin {
             public void run() {
                 try {
                     String result = HttpHelper.postData(MyURL.GET_ID_BY_PHONE_AND_PW, map, null);
-
                     int code = HttpHelper.getCode(result);
                     listener.onSucess(result,code);
                 } catch (Exception e) {

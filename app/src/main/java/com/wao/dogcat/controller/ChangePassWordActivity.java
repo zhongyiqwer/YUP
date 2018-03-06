@@ -10,15 +10,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.owo.utils.Common;
+import com.owo.utils.EncodeAndDecode;
 import com.owo.utils.UtilLog;
 import com.owo.utils.util_http.HttpHelper;
 import com.owo.utils.util_http.MyURL;
 import com.wao.dogcat.R;
-
-import org.json.JSONException;
 
 import java.util.HashMap;
 import java.util.Timer;
@@ -43,6 +41,8 @@ public class ChangePassWordActivity extends Activity implements View.OnClickList
     private String oldPassword;
     private String newPassword;
     private String newPasswordAgain;
+
+    private int flag = -1;
 
     private HashMap<String,String> map = new HashMap<>();
 
@@ -70,15 +70,22 @@ public class ChangePassWordActivity extends Activity implements View.OnClickList
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.backBtn1:
-                Intent i = new Intent();
-                i.setClass(ChangePassWordActivity.this, SettingActivity.class);
-                finish();
-                ChangePassWordActivity.this.startActivity(i);
+                back();
                 break;
             case R.id.btn_change_password:
                 changePassword();
+                if (flag == 1){
+                    back();
+                }
                 break;
         }
+    }
+
+    private void back() {
+        Intent i = new Intent();
+        i.setClass(ChangePassWordActivity.this, SettingActivity.class);
+        finish();
+        ChangePassWordActivity.this.startActivity(i);
     }
 
     private void changePassword() {
@@ -91,6 +98,12 @@ public class ChangePassWordActivity extends Activity implements View.OnClickList
             Common.display(this, "密码应该为6-16位字母或数字组合");
             isConnectWS = false;
         }
+
+        if (Common.user.getPassWord().equals(EncodeAndDecode.getMD5Str(oldPassword))){
+            Common.display(this, "原密码错误");
+            isConnectWS = false;
+        }
+
         if (!newPassword.matches("[a-zA-Z\\d+]{6,16}")) {
             Common.display(this, "密码应该为6-16位字母或数字组合");
             isConnectWS = false;
@@ -106,10 +119,9 @@ public class ChangePassWordActivity extends Activity implements View.OnClickList
             isConnectWS = false;
         }
 
-        if (!isConnectWS)
+        if (!isConnectWS){
             return;
-
-        //Common.showProgressDialog("正在提交",this);
+        }
 
         int userID = Common.userID;
         map.put("passWord",newPassword);
@@ -123,22 +135,33 @@ public class ChangePassWordActivity extends Activity implements View.OnClickList
         TimerTask timerTask = new TimerTask() {
             @Override
             public void run() {
+                Message message = new Message();
+                final Bundle bundle = new Bundle();
                 try {
                     String jsonData = HttpHelper.postData(MyURL.UPDATE_PW_BY_ID,map, null);
                     UtilLog.d(TAG, "修改密码返回的数据--- jsonData" + jsonData);
-                    //Common.dismissProgressDialog(ChangePassWordActivity.this);
-                    Message message = new Message();
-                    Bundle bundle = new Bundle();
-                    bundle.putString("jsonDate",jsonData);
-                    message.setData(bundle);
-                    handler.sendMessage(message);
 
+                    int code = HttpHelper.getCode(jsonData);
+                    if (code == 100){
+                        JMessageClient.updateUserPassword(Common.user.getPassWord(), EncodeAndDecode.getMD5Str(newPassword), new BasicCallback() {
+                            @Override
+                            public void gotResult(int i, String s) {
+                                UtilLog.i(TAG,"i:"+i+" s:"+s);
+                                if (i == 0){
+                                    bundle.putInt("flag",1);
+                                }
+                            }
+                        });
+                    }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }finally {
-                   /* if (Common.mAlertDialog != null){
-                        Common.dismissProgressDialog(ChangePassWordActivity.this);
-                    }*/
+                    if (bundle.isEmpty()){
+                        bundle.putInt("flag",0);
+                    }
+                    message.setData(bundle);
+                    message.what = 1;
+                    handler.sendMessage(message);
                 }
             }
         };
@@ -148,26 +171,18 @@ public class ChangePassWordActivity extends Activity implements View.OnClickList
     private Handler handler = new Handler(new Handler.Callback() {
         @Override
         public boolean handleMessage(Message msg) {
-            Bundle bundle = msg.getData();
-            String jsonDate = bundle.getString("jsonDate");
-            try {
-                int code = HttpHelper.getCode(jsonDate);
-                if (code == 100){
-                    Common.display(ChangePassWordActivity.this,"修改成功");
-                    // TODO: 2018/3/5 有问题 
-                    JMessageClient.updateUserPassword(oldPassword, newPassword, new BasicCallback() {
-                        @Override
-                        public void gotResult(int i, String s) {
-                            UtilLog.i(TAG,"i:"+i+" s:"+s);
-                            if (i == 0){
 
-                            }
-                        }
-                    });
+            if (msg.what == 1){
+                Bundle bundle = msg.getData();
+                flag = bundle.getInt("flag");
+                if (flag == 1){
+                    Common.display(ChangePassWordActivity.this,"修改成功");
+
+                }else if (flag == 0){
+                    Common.display(ChangePassWordActivity.this,"修改失败");
                 }
-            } catch (Exception e) {
-                e.printStackTrace();
             }
+
             return true;
         }
     });
