@@ -1188,6 +1188,7 @@ public class AtyMain extends AppCompatActivity implements ViewAddAty {
                     String result = HttpHelper.postData(MyURL.UPDATE_BEHAVIOR,
                             UtilTime.getEnterTimeMap(mUserId), null);
                     int code = HttpHelper.getCode(result);
+                    UtilLog.i("AtyMain","enterTime:"+result);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -1211,6 +1212,7 @@ public class AtyMain extends AppCompatActivity implements ViewAddAty {
                     String result = HttpHelper.postData(MyURL.UPDATE_BEHAVIOR,
                             UtilTime.getLeaveTimeMap(mUserId), null);
                     int code = HttpHelper.getCode(result);
+                    UtilLog.i("AtyMain","leaveTime:"+result);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

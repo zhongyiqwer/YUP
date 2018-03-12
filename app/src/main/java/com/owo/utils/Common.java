@@ -31,6 +31,7 @@ import com.owo.model.User;
 import com.owo.model.UserPose;
 import com.wao.dogcat.widget.GenericProgressDialog;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -616,5 +617,28 @@ public class Common {
         }
     }
 
+    public static final int REQUEST_PERMISSION = 3;
+    public static Boolean checkPermissions(Activity activity){
+        List<String> permissionList = new ArrayList<>();
+        if (ActivityCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE) !=
+                PackageManager.PERMISSION_GRANTED ) {
+            permissionList.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+
+        }
+        if (ActivityCompat.checkSelfPermission(activity, Manifest.permission.READ_EXTERNAL_STORAGE) !=
+                PackageManager.PERMISSION_GRANTED){
+            permissionList.add(Manifest.permission.READ_EXTERNAL_STORAGE);
+        }
+        if (ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_COARSE_LOCATION) !=
+                PackageManager.PERMISSION_GRANTED){
+            permissionList.add(Manifest.permission.ACCESS_COARSE_LOCATION);
+        }
+        if (!permissionList.isEmpty()){
+            String [] permissions = permissionList.toArray(new String[permissionList.size()]);
+            ActivityCompat.requestPermissions(activity,permissions,REQUEST_PERMISSION);
+            return false;
+        }
+        return true;
+    }
 
 }

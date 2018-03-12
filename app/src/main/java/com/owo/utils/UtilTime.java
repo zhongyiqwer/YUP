@@ -14,7 +14,7 @@ public class UtilTime {
         Long currentTime = System.currentTimeMillis();
         String enterTime = currentTime.toString();
         HashMap<String,String> map = new HashMap<>();
-        map.put("UserID",""+userID);
+        map.put("userID",""+userID);
         map.put("enterTime",enterTime);
         return map;
     }
@@ -23,8 +23,8 @@ public class UtilTime {
         Long currentTime = System.currentTimeMillis();
         String leaveTime = currentTime.toString();
         HashMap<String,String> map = new HashMap<>();
-        map.put("UserID",""+userID);
-        map.put("enterTime",leaveTime);
+        map.put("userID",""+userID);
+        map.put("leaveTime",leaveTime);
         return map;
     }
 

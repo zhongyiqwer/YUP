@@ -235,7 +235,6 @@ public class FragHomeNormal extends FragBase implements ViewHome {
         if (!Common.isKitkatWithStepSensor(getContext())) {
             Common.display(getContext(), "你的手机没有计步器，将无法获取金币...");
         }
-        Common.locationPermission(getActivity());
 
         if (!Common.isServiceRun(getContext(), "com.wao.dogcat.controller.server.TimeService")) {
             //开启时间服务

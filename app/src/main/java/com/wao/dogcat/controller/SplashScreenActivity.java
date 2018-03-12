@@ -6,11 +6,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
+import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -22,6 +24,7 @@ import com.owo.module_a_login.AtyLoginOrRegister;
 import com.owo.module_a_login.widgets.FragLoginOrRegister;
 import com.owo.module_b_main.AtyMain;
 import com.owo.utils.Common;
+import com.owo.utils.UtilLog;
 import com.wao.dogcat.R;
 
 
@@ -141,9 +144,16 @@ public class SplashScreenActivity extends Activity {
         getWindowManager().getDefaultDisplay().getMetrics(metric);
         Common.screenWidth = metric.widthPixels;  // 屏幕宽度（像素）
         Common.screenHeight = metric.heightPixels;  // 屏幕高度（像素）
+        //检查权限，权限一定要给，且必须在登录之前，否则就会crash
+        //而且2个权限最好一起申请并加上权限申请结果回调判断，否则也会crash
+        Boolean checkPermissions = Common.checkPermissions(this);
+        if (checkPermissions){
+            goin();
+        }
 
-        Common.verifyStoragePermissions(this);
+    }
 
+    private void goin() {
         //应用区域
         Rect outRect = new Rect();
         getWindow().getDecorView().getWindowVisibleDisplayFrame(outRect);
@@ -153,7 +163,6 @@ public class SplashScreenActivity extends Activity {
         Common.userSP = getSharedPreferences("userSP", 0);
         userID = Common.userSP.getInt("ID", 0);
         userStatus = Common.userSP.getInt("status", 0);
-
         Set<String> tags = new HashSet<>();
         tags.add(userStatus + "");
 
@@ -175,7 +184,6 @@ public class SplashScreenActivity extends Activity {
         Timer timer = new Timer();
         TimerTask task = new TimerTask() {
 
-
             @Override
             public void run() {
                 sp = getSharedPreferences("flagSP", 0);
@@ -195,22 +203,40 @@ public class SplashScreenActivity extends Activity {
                     Intent intent1 = new Intent();
                     finish();
                     if (userID == 0)
-                    intent1.setClass(SplashScreenActivity.this, AtyLoginOrRegister.class);
+                        intent1.setClass(SplashScreenActivity.this, AtyLoginOrRegister.class);
                     else intent1.setClass(SplashScreenActivity.this, AtyMain.class);
                     startActivity(intent1);
 
-
                 }
 
-
             }
-
-
         };
         timer.schedule(task, 1400);
 
     }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode){
+            case Common.REQUEST_PERMISSION:
+                if (grantResults.length>0) {
+                    UtilLog.i("SplashScreenActivity", "请求权限个数=" + grantResults.length);
+                    for (int result : grantResults) {
+                        if (result != PackageManager.PERMISSION_GRANTED) {
+                            UtilLog.i("SplashScreenActivity1", "没有权限");
+                            finish();
+                            return;
+                        }
+                    }
+                    goin();
+                }else {
+                    UtilLog.i("SplashScreenActivity1", "未知错误");
+                    finish();
+                }
+                break;
+            default:
+        }
+    }
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
