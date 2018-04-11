@@ -106,7 +106,7 @@ public class NonHierarchicalDistanceBasedAlgorithm<T extends ClusterItem> implem
                 Bounds searchBounds = createBoundsFromSpan(candidate.getPoint(), zoomSpecificSpan);
                 Collection<QuadItem<T>> clusterItems;
                 // search 某边界范围内的clusterItems
-                clusterItems = mQuadTree.search(searchBounds);
+                clusterItems = mQuadTree.search(searchBounds,candidate.getTaskType());
                 if (clusterItems.size() == 1) {
                     // Only the current marker is in range. Just add the single item to the results.
                     results.add(candidate);
@@ -116,7 +116,7 @@ public class NonHierarchicalDistanceBasedAlgorithm<T extends ClusterItem> implem
                 }
                 com.baidu.mapapi.clusterutil.clustering.algo.StaticCluster<T> cluster =
                         new com.baidu.mapapi.clusterutil.clustering.algo
-                                .StaticCluster<T>(candidate.mClusterItem.getPosition());
+                                .StaticCluster<T>(candidate.mClusterItem.getPosition(),candidate.getTaskType());
                 results.add(cluster);
 
                 for (QuadItem<T> clusterItem : clusterItems) {
@@ -169,17 +169,26 @@ public class NonHierarchicalDistanceBasedAlgorithm<T extends ClusterItem> implem
         private final Point mPoint;
         private final LatLng mPosition;
         private Set<T> singletonSet;
+        private int taskType ;
 
         private QuadItem(T item) {
             mClusterItem = item;
             mPosition = item.getPosition();
             mPoint = PROJECTION.toPoint(mPosition);
             singletonSet = Collections.singleton(mClusterItem);
+            taskType = item.getTaskType();
         }
+
+        public int getTaskType(){return taskType;}
 
         @Override
         public Point getPoint() {
             return mPoint;
+        }
+
+        @Override
+        public int getType() {
+            return taskType;
         }
 
         @Override

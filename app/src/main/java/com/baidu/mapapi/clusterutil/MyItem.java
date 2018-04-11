@@ -51,4 +51,9 @@ public class MyItem implements ClusterItem {
         }
         return bitmapDescriptor;
     }
+
+    @Override
+    public int getTaskType() {
+        return taskType;
+    }
 }

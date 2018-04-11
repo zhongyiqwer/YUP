@@ -18,9 +18,11 @@ import java.util.List;
 public class StaticCluster<T extends ClusterItem> implements Cluster<T> {
     private final LatLng mCenter;
     private final List<T> mItems = new ArrayList<T>();
+    private int taskType;
 
-    public StaticCluster(LatLng center) {
+    public StaticCluster(LatLng center,int taskType) {
         mCenter = center;
+        this.taskType = taskType;
     }
 
 
@@ -49,10 +51,15 @@ public class StaticCluster<T extends ClusterItem> implements Cluster<T> {
     }
 
     @Override
+    public int getTaskType() {
+        return taskType;
+    }
+
+    @Override
     public String toString() {
         return "StaticCluster{"
                 + "mCenter=" + mCenter
                 + ", mItems.size=" + mItems.size()
-                + '}';
+                + ", taskType="+taskType+'}';
     }
 }

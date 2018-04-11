@@ -36,6 +36,7 @@ public class IconGenerator {
     private RotationLayout mRotationLayout;
     private TextView mTextView;
     private View mContentView;
+    private View backGruond;
 
     private int mRotation;
 
@@ -50,6 +51,7 @@ public class IconGenerator {
         mContainer = (ViewGroup) LayoutInflater.from(mContext).inflate(R.layout.text_bubble, null);
         mRotationLayout = (RotationLayout) mContainer.getChildAt(0);
         mContentView = mTextView = (TextView) mRotationLayout.findViewById(R.id.text);
+        backGruond = mRotationLayout.findViewById(R.id.layout_rt);
         setStyle(STYLE_DEFAULT);
     }
 
@@ -58,9 +60,17 @@ public class IconGenerator {
      *
      * @param text the text content to display inside the icon.
      */
-    public Bitmap makeIcon(String text) {
+    public Bitmap makeIcon(String text,int taskType) {
         if (mTextView != null) {
             mTextView.setText(text);
+        }
+
+        if (taskType == 1){
+            backGruond.setBackgroundResource(R.drawable.map_online_1);
+        }else if (taskType == 2){
+            backGruond.setBackgroundResource(R.drawable.map_reality_1);
+        }else if (taskType == 3){
+            backGruond.setBackgroundResource(R.drawable.map_immediately_1);
         }
 
         return makeIcon();
@@ -111,7 +121,7 @@ public class IconGenerator {
      * Sets the child view for the icon.
      * <p/>
      * If the view contains a {@link TextView} with the id "text", operations such as {@link
-     * #setTextAppearance} and {@link #makeIcon(String)} will operate upon that {@link TextView}.
+     * #setTextAppearance} and {@link #makeIcon(String,int)} will operate upon that {@link TextView}.
      */
     public void setContentView(View contentView) {
         mRotationLayout.removeAllViews();

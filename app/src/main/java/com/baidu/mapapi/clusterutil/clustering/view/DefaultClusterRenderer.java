@@ -126,7 +126,8 @@ public class DefaultClusterRenderer<T extends ClusterItem> implements
         mIconGenerator = new IconGenerator(context);
         mIconGenerator.setContentView(makeSquareTextView(context));
         mIconGenerator.setTextAppearance(R.style.ClusterIcon_TextAppearance);
-        mIconGenerator.setBackground(makeClusterBackground());
+        //自己实现图片
+        //mIconGenerator.setBackground(makeClusterBackground());
         mClusterManager = clusterManager;
     }
 
@@ -707,8 +708,8 @@ public class DefaultClusterRenderer<T extends ClusterItem> implements
         int bucket = getBucket(cluster);
         BitmapDescriptor descriptor = mIcons.get(bucket);
         if (descriptor == null) {
-            mColoredCircleBackground.getPaint().setColor(getColor(bucket));
-            descriptor = BitmapDescriptorFactory.fromBitmap(mIconGenerator.makeIcon(getClusterText(bucket)));
+            //mColoredCircleBackground.getPaint().setColor(getColor(bucket));
+            descriptor = BitmapDescriptorFactory.fromBitmap(mIconGenerator.makeIcon(getClusterText(bucket),cluster.getTaskType()));
             mIcons.put(bucket, descriptor);
         }
         // TODO: consider adding anchor(.5, .5) (Individual markers will overlap more often)

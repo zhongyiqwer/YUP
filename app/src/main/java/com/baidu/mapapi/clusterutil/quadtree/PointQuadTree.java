@@ -179,33 +179,38 @@ public class PointQuadTree<T extends PointQuadTree.Item> {
 
         public Point getPoint();
 
+        public int getType();
     }
 
     /**
      * Search for all items within a given bounds.
      */
-    public Collection<T> search(Bounds searchBounds) {
+    public Collection<T> search(Bounds searchBounds,int taskType) {
         final List<T> results = new ArrayList<T>();
-        search(searchBounds, results);
+        search(searchBounds, results,taskType);
         return results;
     }
 
-    private void search(Bounds searchBounds, Collection<T> results) {
+    private void search(Bounds searchBounds, Collection<T> results,int taskType) {
         if (!mBounds.intersects(searchBounds)) {
             return;
         }
 
         if (this.mChildren != null) {
             for (PointQuadTree<T> quad : mChildren) {
-                quad.search(searchBounds, results);
+                quad.search(searchBounds, results,taskType);
             }
         } else if (mItems != null) {
             if (searchBounds.contains(mBounds)) {
-                results.addAll(mItems);
+                //判断类型
+                for (T item :mItems) {
+                    if (item.getType() == taskType) {results.addAll(mItems);}
+                }
+                //results.addAll(mItems);
             } else {
                 for (T item : mItems) {
                     if (searchBounds.contains(item.getPoint())) {
-                        results.add(item);
+                        if (item.getType() == taskType) {results.add(item);}
                     }
                 }
             }
