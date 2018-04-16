@@ -42,9 +42,9 @@ import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
-import com.baidu.mapapi.clusterutil.MarkerClusterDemo;
 import com.baidu.mapapi.clusterutil.MyItem;
 import com.baidu.mapapi.clusterutil.clustering.Cluster;
+import com.baidu.mapapi.clusterutil.clustering.ClusterItem;
 import com.baidu.mapapi.clusterutil.clustering.ClusterManager;
 import com.baidu.mapapi.map.BaiduMap;
 import com.baidu.mapapi.map.BitmapDescriptor;
@@ -611,28 +611,9 @@ public class FragHomeNormal extends FragBase implements ViewHome {
         /**
          * 聚合功能后的点击事件
          */
-        UtilLog.e("FrageHomeNormal","开始进入聚合点击"+getContext());
-      /*  MarkerClusterDemo markerClusterDemo = MarkerClusterDemo.getSingleton();
-        markerClusterDemo.updataMap();
-        markerClusterDemo.init(getContext(),mBaiduMap);
-        ClusterManager mClusterManager = markerClusterDemo.getClusterManager();
-        if (mClusterManager!=null){
-            UtilLog.e("FrageHomeNormal","mClusterManager不为空");
-        }else {
-            UtilLog.e("FrageHomeNormal","mClusterManager为空");
-        }
-        // 设置地图监听，当地图状态发生改变时，进行点聚合运算
-        if (mClusterManager!=null){
-            UtilLog.e("FrageHomeNormal","mClusterManager不为空");
-        }else {
-            UtilLog.e("FrageHomeNormal","mClusterManager为空");
-        }
-        mBaiduMap.setOnMapStatusChangeListener(mClusterManager);
-        // 设置maker点击时的响应
-        mBaiduMap.setOnMarkerClickListener(mClusterManager);
-        UtilLog.e("FrageHomeNormal","聚合点击");*/
-
-
+        //初始化ClusterManager
+       ClusterManager.getInstance(getContext(),mBaiduMap);
+        UtilLog.e("FrageHomeNormal","开始进入聚合点击");
 
          /*对Marker的点击*/
  /*        mBaiduMap.setOnMarkerClickListener(new BaiduMap.OnMarkerClickListener() {
@@ -1121,14 +1102,14 @@ public class FragHomeNormal extends FragBase implements ViewHome {
 //        }
 //
 //    };
-    public void mClusterManagerClick(ClusterManager mClusterManager){
+    public void mClusterManagerClick(){
         // 设置地图监听，当地图状态发生改变时，进行点聚合运算
+        mClusterManager = ClusterManager.getInstance();
         if (mClusterManager!=null){
             UtilLog.e("FrageHomeNormal","mClusterManager不为空");
         }else {
             UtilLog.e("FrageHomeNormal","mClusterManager为空");
         }
-
         mBaiduMap.setOnMapStatusChangeListener(mClusterManager);
         // 设置maker点击时的响应
         mBaiduMap.setOnMarkerClickListener(mClusterManager);
@@ -1249,8 +1230,8 @@ public class FragHomeNormal extends FragBase implements ViewHome {
             switch (msg.what) {
                 case 1:
                     //多传了一个上线下文
-                    mClusterManager = MapUtil.addAct(getContext(),mBaiduMap, nearbyTask);
-                    mClusterManagerClick(mClusterManager);
+                    MapUtil.addAct(mBaiduMap, nearbyTask);
+                    mClusterManagerClick();
                     try {
                         HashMap<String,String> map = new HashMap<>();
                         map.put("userID",Common.userID+"");

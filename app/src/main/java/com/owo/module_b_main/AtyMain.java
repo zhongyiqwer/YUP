@@ -43,7 +43,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.baidu.mapapi.clusterutil.MarkerClusterDemo;
 import com.baidu.mapapi.clusterutil.MyItem;
 import com.baidu.mapapi.clusterutil.clustering.ClusterManager;
 import com.baidu.mapapi.map.BaiduMap;
@@ -1044,18 +1043,13 @@ public class AtyMain extends AppCompatActivity implements ViewAddAty {
             bundle1.putString("actOwn","myAct");
             bundle1.putBundle("myActBundle",bundle);
             MyItem myItem = new MyItem(latLng,taskType,bundle1);
-            MarkerClusterDemo markerClusterDemo = MarkerClusterDemo.getSingleton();
-            ClusterManager clusterManager = markerClusterDemo.getClusterManager();
+            ClusterManager clusterManager = ClusterManager.getInstance();
             if (clusterManager==null){
                 UtilLog.e("FrageHomeNormalAtyMainLog","clusterManager为空");
             }else {
                 UtilLog.e("FrageHomeNormalAtyMainLog","clusterManager不为空");
             }
             clusterManager.addItem(myItem);
-            //不知道有没有用，为了解觉添加后要对地图进行操作才显示的情况
-            //markerClusterDemo.updataMap();
-            //clusterManager.onMapStatusChange(baiduMap.getMapStatus());
-            //markerClusterDemo.updataMap();
         }
 
     }

@@ -20,7 +20,6 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.baidu.mapapi.clusterutil.MarkerClusterDemo;
 import com.baidu.mapapi.clusterutil.MyItem;
 import com.baidu.mapapi.clusterutil.clustering.ClusterManager;
 import com.baidu.mapapi.map.BaiduMap;
@@ -892,17 +891,12 @@ public class MapUtil {
 
     //添加地图上的活动
     //Context 是自己后来加上的
-    public static ClusterManager addAct(Context context,BaiduMap baiduMap, List<BeanTask>
+    public static void addAct(BaiduMap baiduMap, List<BeanTask>
             txtLists ) {
-        MarkerClusterDemo markerClusterDemo = null;
         ClusterManager<MyItem> clusterManager = null;
         try {
-            UtilLog.e("FrageHomeNormaladd","进入addAct"+context);
             UtilLog.e("FrageHomeNormaladd","进入addAct");
-            markerClusterDemo = MarkerClusterDemo.getSingleton();
-            markerClusterDemo.init(context,baiduMap);
-            markerClusterDemo.updataMap();
-            clusterManager = markerClusterDemo.getClusterManager();
+            clusterManager = ClusterManager.getInstance();
             if (clusterManager==null){
                 UtilLog.e("FrageHomeNormaladd","clusterManager为空");
             }else {
@@ -939,8 +933,6 @@ public class MapUtil {
                     }
                 }
                 clusterManager.addItems(items);
-                //clusterManager.onMapStatusChange(baiduMap.getMapStatus());
-                //markerClusterDemo.updataMap();
                 UtilLog.e("FrageHomeNormaladd","add完毕");
             }
            /* UtilLog.e("FrageHomeNormaladd"," "+txtLists.size());
@@ -987,7 +979,6 @@ public class MapUtil {
         } catch (Exception ee) {
             ee.printStackTrace();
         }
-        return clusterManager;
     }
 
 

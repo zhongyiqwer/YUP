@@ -50,6 +50,23 @@ public class ClusterManager<T extends ClusterItem> implements
     private OnClusterItemInfoWindowClickListener<T> mOnClusterItemInfoWindowClickListener;
     private OnClusterClickListener<T> mOnClusterClickListener;
 
+    private volatile static ClusterManager instance;
+
+    public static ClusterManager getInstance(Context context, BaiduMap map){
+        if (instance== null) {
+            synchronized (ClusterManager.class) {
+                if (instance == null) {
+                    instance = new ClusterManager(context,map);
+                }
+            }
+        }
+        return instance;
+    }
+
+    public static ClusterManager getInstance(){
+        return instance;
+    }
+
     public ClusterManager(Context context, BaiduMap map) {
         this(context, map, new MarkerManager(map));
     }
